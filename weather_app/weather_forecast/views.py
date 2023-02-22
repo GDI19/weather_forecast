@@ -21,11 +21,11 @@ def index(request):
 
 
 def get_data(city):
-    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&APPID=6f9b5463e6469f3078746f08677709b4&units=metric'
+    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&APPID=6f9b5463e6469f3078746f08677709b4'
     weather_from_api = requests.get(url.format(city)).json()
     # print(weather_from_api)
-    # temperature_celsius = round(weather_from_api['main']['temp'] - 273.15)
-    # weather_from_api['main']['temp'] = temperature_celsius
+    temperature_celsius = round(weather_from_api['main']['temp'] - 273.15)
+    weather_from_api['main']['temp'] = temperature_celsius
     form = CityForm()
     context = {'weather': weather_from_api, 'form': form}
     return context
