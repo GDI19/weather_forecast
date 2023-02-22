@@ -1,0 +1,14 @@
+
+.messages{
+    border: 2px red solid;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    background-color: antiquewhite;
+    border-radius: 3px;
+}
+
+.footter_span{
+    font-size: 24px;
+}
