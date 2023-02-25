@@ -47,7 +47,7 @@
               </div>
               <div class="control">
                 <button class="button is-info">
-                  Add City
+                  Enter City
                 </button>
               </div>
             </div>
@@ -57,6 +57,9 @@
     </div>
   </section>
   <section class="section">
+    {% if city_info %}
+    <img src='https://countryflagsapi.com/png/{{city_info.country}}' alt="{{ city_info.country}} Flag">
+
     <div class="container">
       <div class="columns">
         <div class="column is-offset-4 is-4">
@@ -64,16 +67,19 @@
             <article class="media">
               <div class="media-left">
                 <figure class="image is-50x50">
-                  <img src="http://openweathermap.org/img/w/{{ weather.weather.0.icon }}.png" alt="Image">
+                  <img src="http://countryflagsapi.com/png/{{city_info.country|lower}}/" alt="{{ city_info.country|lower }} Flag">
                 </figure>
               </div>
               <div class="media content">
                 <div class="content">
                   <p>
-                    <span class="title">{{ weather.name }}</span>
+                    <span class="title">{{ city_info.name }}</span>
                     <br>
-                    <span class="subtitle">{{weather.main.temp|floatformat:"0" }}° C</span>
-                    <br> {{ weather.weather.0.description }}
+                    <span class="subtitle">country {{ city_info.country }}</span>
+
+                    <br> timezone {{ city_info.timezone }} UTC
+                    <br> Sunrise {{ city_info.sunrise }}
+                    <br> Sunset {{ city_info.sunset }}
                   </p>
                 </div>
               </div>
@@ -82,6 +88,57 @@
         </div>
       </div>
     </div>
+    {% endif %}
+  </section>
+
+  <section class="section">
+    {% if weather %}
+
+      <div class="container">
+        <div class="columns">
+          <div class="column is-offset-4 is-4">
+            <div class="media content">
+              <div class="content">
+                <p>
+                  <span class="title">Forecast for 5 days</span>
+                <p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% for item in weather %}
+    <div class="container">
+      <div class="columns">
+        <div class="column is-offset-4 is-4">
+          <div class="box">
+            <article class="media">
+              <div class="media-left">
+                <figure class="image is-50x50">
+                  <img src="http://openweathermap.org/img/w/{{ item.icon }}.png" alt="Image">
+                </figure>
+              </div>
+              <div class="media content">
+                <div class="content">
+                  <p>
+                    <span class="subtitle">{{ item.day }}</span>
+                    <br>
+                    <span class="subtitle">{{item.temperature|floatformat:"0" }}° C</span>
+                    <br> {{ item.description }}
+                    <br> humidity {{ item.humidity }}
+                    <br> wind_speed {{ item.wind_speed }}
+                    <br> wind_gust {{ item.wind_gust }}
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+      {% endfor %}
+    {% endif %}
   </section>
 
   <footer class="footer">
