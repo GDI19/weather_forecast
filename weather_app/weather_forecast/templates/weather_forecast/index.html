@@ -25,9 +25,9 @@
     {% if messages %}
       <ul class="messages">
         {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-        {{ message }}
-        </li>
+
+            <li{%if message.tags%} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+
         {% endfor %}
       </ul>
     {% endif %}
@@ -58,7 +58,6 @@
   </section>
   <section class="section">
     {% if city_info %}
-    <img src='https://countryflagsapi.com/png/{{city_info.country}}' alt="{{ city_info.country}} Flag">
 
     <div class="container">
       <div class="columns">
@@ -67,19 +66,20 @@
             <article class="media">
               <div class="media-left">
                 <figure class="image is-50x50">
-                  <img src="http://countryflagsapi.com/png/{{city_info.country|lower}}/" alt="{{ city_info.country|lower }} Flag">
+                  <img src='https://flagcdn.com/56x42/{{city_info.country|lower}}.png' width="56" height="42" alt="{{ city_info.country}} Flag">
                 </figure>
               </div>
               <div class="media content">
                 <div class="content">
                   <p>
-                    <span class="title">{{ city_info.name }}</span>
+                    <span class="title">{{ city_info.name|title }}</span>
                     <br>
                     <span class="subtitle">country {{ city_info.country }}</span>
+                    <p id="local_time_p"> local time:</p>
+                    <div id="local-time"></div>
 
-                    <br> timezone {{ city_info.timezone }} UTC
-                    <br> Sunrise {{ city_info.sunrise }}
-                    <br> Sunset {{ city_info.sunset }}
+                    <br> Sunrise: {{ city_info.sunrise }}
+                    <br> Sunset: {{ city_info.sunset }}
                   </p>
                 </div>
               </div>
@@ -126,9 +126,10 @@
                     <br>
                     <span class="subtitle">{{item.temperature|floatformat:"0" }}° C</span>
                     <br> {{ item.description }}
-                    <br> humidity {{ item.humidity }}
-                    <br> wind_speed {{ item.wind_speed }}
-                    <br> wind_gust {{ item.wind_gust }}
+                    <br>
+                    <br> Humidity: {{ item.humidity }}%
+                    <br> Wind speed: {{ item.wind_speed }}meter/sec
+                    <br> Wind gust: {{ item.wind_gust }}meter/sec
                   </p>
                 </div>
               </div>
@@ -140,6 +141,44 @@
       {% endfor %}
     {% endif %}
   </section>
+
+  {% if city_info %}
+  <script type="text/javascript">
+
+    function zero_first_format(value)
+    {
+      if (value < 10)
+      {
+        value= '0' + value;
+      }
+      return value;
+    }
+
+    function format_24_hours(value)
+    {
+    if (value > 23)
+      {
+      value = value - 24;
+      }
+      return value;
+    }
+
+    function date_time()
+    {
+      var local_date_time = new Date()
+
+      var hours = zero_first_format(format_24_hours(local_date_time.getUTCHours()+{{ city_info.timezone }}));
+      var minutes = zero_first_format(local_date_time.getUTCMinutes());
+      var seconds = zero_first_format(local_date_time.getUTCSeconds());
+
+      return hours+':'+minutes+':'+seconds;
+    }
+
+    setInterval(function () {
+        document.getElementById('local-time').innerHTML = date_time();
+    }, 1000);
+  </script>
+  {% endif %}
 
   <footer class="footer">
     <span class="footter_span"> CopyRights &#169 2023 GD </span>

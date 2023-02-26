@@ -25,8 +25,35 @@ SECRET_KEY = 'j1e%v&^#bk=c0s%(5w0i8sd-%fl_qua9chw=zm*9$2v(5sl&0c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# CORS_ALLOW_HEADERS = ['*']
 
+ALLOWED_HOSTS = ['*']
+
+# CORS_ALLOW_ALL_ORIGINS = False
+# CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOW_CREDENTIALS = False
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:8080",
+#     "http://localhost:8000",
+#     "http://127.0.0.1:8000",
+#     "http://127.0.0.1:8080",
+#     "http://127.0.0.1:9000",
+#     "https://countryflagsapi.com",
+#     "http://countryflagsapi.com",
+#     "http://api.openweathermap.org",
+# ]
+
+# CSRF_TRUSTED_ORIGINS = [
+#     "http://localhost:8080",
+#     "http://localhost:8000",
+#     "http://127.0.0.1:8000",
+#     "http://127.0.0.1:8080",
+#     "http://127.0.0.1:9000",
+#     "https://countryflagsapi.com",
+#     "http://countryflagsapi.com",
+#     "http://api.openweathermap.org",
+# ]
 
 # Application definition
 
@@ -37,14 +64,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #'corsheaders',
+
     'weather_forecast',
 ]
 
 MIDDLEWARE = [
+    #'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    "corsheaders.middleware.CorsPostCsrfMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -114,8 +146,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+
