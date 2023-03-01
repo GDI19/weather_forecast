@@ -5,6 +5,7 @@ import requests
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from .forms import CityForm
+from config import OPEN_WEATHER_API_KEY
 
 
 def index(request):
@@ -28,13 +29,13 @@ def index(request):
 
 
 def get_data(city):
-    url_geo = 'http://api.openweathermap.org/geo/1.0/direct?q={}&limit=1&appid=6f9b5463e6469f3078746f08677709b4'
-    coordinates_from_api = requests.get(url_geo.format(city)).json()
+    url_geo = 'http://api.openweathermap.org/geo/1.0/direct?q={city}&limit=1&appid={key}'
+    coordinates_from_api = requests.get(url_geo.format(city=city, key=OPEN_WEATHER_API_KEY)).json()
     latitude = round(coordinates_from_api[0]['lat'], 2)
     longitude = round(coordinates_from_api[0]['lon'], 2)
 
-    url_5days = 'http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=6f9b5463e6469f3078746f08677709b4&units=metric'
-    data_from_api = requests.get(url_5days.format(lat=latitude, lon=longitude)).json()
+    url_5days = 'http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={key}&units=metric'
+    data_from_api = requests.get(url_5days.format(lat=latitude, lon=longitude, key=OPEN_WEATHER_API_KEY)).json()
 
     return data_from_api
 
