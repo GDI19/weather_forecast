@@ -1,0 +1,32 @@
+
+.messages{
+    border: 2px red solid;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    background-color: antiquewhite;
+    border-radius: 3px;
+}
+
+#local-time{
+    width: 100%;
+    text-align: center;
+    background-color:#333333;
+    color:#00FF00;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-family: monospace;
+}
+
+#local_time_p{
+    margin-bottom: 0px;
+}
+
+.footter_span{
+    font-size: 24px;
+}
+
+img.image_sun {
+    width: 30px;
+}
