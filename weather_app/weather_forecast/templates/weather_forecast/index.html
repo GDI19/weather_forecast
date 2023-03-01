@@ -1,3 +1,5 @@
+{% load static%}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>What's the weather like?</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
-  <link rel="stylesheet" href="static/index.css" />
+  <link rel="stylesheet" href="{% static 'css/bulma.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/index.css' %}" />
 </head>
 <body>
   <section class="hero is-primary">
@@ -66,7 +68,7 @@
             <article class="media">
               <div class="media-left">
                 <figure class="image is-50x50">
-                  <img src='https://flagcdn.com/56x42/{{city_info.country|lower}}.png' width="56" height="42" alt="{{ city_info.country}} Flag">
+                  <img src='https://flagcdn.com/56x42/{{city_info.country_code|lower}}.png' width="56" height="42" alt="{{ city_info.country}} Flag">
                 </figure>
               </div>
               <div class="media content">
@@ -74,12 +76,13 @@
                   <p>
                     <span class="title">{{ city_info.name|title }}</span>
                     <br>
-                    <span class="subtitle">country {{ city_info.country }}</span>
+                    <span class="subtitle">{{ city_info.country_name }}</span>
                     <p id="local_time_p"> local time:</p>
                     <div id="local-time"></div>
-
-                    <br> Sunrise: {{ city_info.sunrise }}
-                    <br> Sunset: {{ city_info.sunset }}
+                    <br>
+                    <img class="image_sun" src="{% static 'img/sunrise.png' %}">{{ city_info.sunrise }}
+                    <br>
+                    <img class="image_sun" src="{% static 'img/sunset.png' %}">{{ city_info.sunset }}
                   </p>
                 </div>
               </div>
